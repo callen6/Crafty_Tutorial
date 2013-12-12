@@ -46,7 +46,6 @@ Crafty.c('Bush', {
 		init: function() {
 			this.requires('Actor, Fourway, Collision, spr_player')
 				.fourway(4)
-				.color('rgb(20, 75, 40')
 				.stopOnSolids()
 				 // Whenever the PC touches a village, respond to the event
       	.onHit('Village', this.visitVillage);
@@ -76,8 +75,7 @@ Crafty.c('Bush', {
 // in order to win the game
 Crafty.c('Village', {
 	init: function() {
-		this.requires('Actor, Color')
-			.color('rgb(170, 125, 40');
+		this.requires('Actor, spr_village');
 	},
 
 	visit: function() {

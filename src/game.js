@@ -24,10 +24,11 @@ Game = {
 		start: function() {
 			// start crafty and set a background color so we see its working
 			Crafty.init(Game.width(), Game.height());
-			Crafty.background('rgb(249, 223, 125');
+			Crafty.background('rgb(87, 109, 20');
 			// simply start the Game scene to get things going
 			Crafty.scene('Game');
   }
 }
 
+$text_css = {'font-size': '24px', 'font-family': 'Helvetica', 'color': 'white', 'text-align': 'center'}
 
