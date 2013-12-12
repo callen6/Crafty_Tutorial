@@ -26,7 +26,7 @@ Game = {
 			Crafty.init(Game.width(), Game.height());
 			Crafty.background('rgb(87, 109, 20');
 			// simply start the Game scene to get things going
-			Crafty.scene('Game');
+			Crafty.scene('Loading');
   }
 }
 
