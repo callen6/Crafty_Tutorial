@@ -27,14 +27,14 @@ Crafty.c('Actor', {
 
 Crafty.c('Tree', {
 	init: function () {
-		this.requires('Actor, Color')
+		this.requires('Actor, Color, Solid')
 			.color('rgb(20, 125, 40');
 		},
 });
 
 Crafty.c('Bush', {
 	init: function() {
-		this.requires('Actor, Color')
+		this.requires('Actor, Color, Solid')
 		 .color('rgb(20, 185, 40');
 	},
 });
@@ -42,11 +42,28 @@ Crafty.c('Bush', {
 // this is the player-controlled character
 	Crafty.c('PlayerCharacter', {
 		init: function() {
-			this.requires('Actor, Fourway, Color')
+			this.requires('Actor, Fourway, Color, Collision')
 				.fourway(4)
-				.color('rgb(20, 75, 40');
+				.color('rgb(20, 75, 40')
+				.stopOnSolids();
+		},
+// this registers a stop-movement function to be called
+//  when this entity hits an entity with the "solid" component
+		stopOnSolids: function() {
+			this.onHit('Solid', this.stopMovement);
+			return this;
+		},
+		// stops the movement
+		stopMovement: function() {
+			this.speed = 0;
+			if (this._movement) {
+				this.x -= this._movement.x;
+				this.y -= this._movement.y;
+			}
 		}
 	});
+
+
 
 
 
