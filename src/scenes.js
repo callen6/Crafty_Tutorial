@@ -55,7 +55,7 @@ Crafty.scene('Victory', function () {
 		Crafty.scene('Game');
 	});
 }, function() {
-	this.undbind('KeyDown', this.restart_game);
+	this.unbind('KeyDown', this.restart_game);
 });
 
 
