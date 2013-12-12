@@ -58,7 +58,8 @@ Crafty.scene('Game', function() {
 // and also gives directions for how to restart the game
 Crafty.scene('Victory', function () {
 	Crafty.e('2D, DOM, Text')
-	.attr({ x: 0, y: 0})
+	.attr({ x:0, y: Game.height()/2-24, w: Game.width() })
+	.css($text_css)
 	.text('Victory! Press any key to play again.');
 	// watch for the player to press a key, then restart the game
 	// when any key is pressed
