@@ -25,13 +25,15 @@ Game = {
 		// start crafty and set a background color so we see its working
 		Crafty.init(Game.width(), Game.height());
 		Crafty.background('rgb(249, 223, 125');
-	// place a tree at every edge square on our grid of 16x16 tiles
-	// use for loop
-	for (var x = 0; x < Game.map_grid.width; x++) {
-		for (var y = 0; y < Game.map_grid.height; y++) {
-			var at_edge = x === 0 || x === Game.map_grid.width -1 || y === 0 || y === Game.map_grid.height -1;
+		// player character, placed at 5, 5 on our grid
+		Crafty.e('PlayerCharacter').at(5,5);
+		// place a tree at every edge square on our grid of 16x16 tiles
+		// use for loop
+		for (var x = 0; x < Game.map_grid.width; x++) {
+			for (var y = 0; y < Game.map_grid.height; y++) {
+				var at_edge = x === 0 || x === Game.map_grid.width -1 || y === 0 || y === Game.map_grid.height -1;
 
-			if (at_edge) {
+				if (at_edge) {
 				// place a tree entity at the current tile
 				Crafty.e('Tree').at(x,y);
 			} else if (Math.random() < 0.06) {
