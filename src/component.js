@@ -39,13 +39,18 @@ Crafty.c('Bush', {
 	},
 });
 
+
+
+
 // this is the player-controlled character
 	Crafty.c('PlayerCharacter', {
 		init: function() {
 			this.requires('Actor, Fourway, Color, Collision')
 				.fourway(4)
 				.color('rgb(20, 75, 40')
-				.stopOnSolids();
+				.stopOnSolids()
+				 // Whenever the PC touches a village, respond to the event
+      	.onHit('Village', this.visitVillage);
 		},
 // this registers a stop-movement function to be called
 //  when this entity hits an entity with the "solid" component
@@ -70,7 +75,6 @@ Crafty.c('Bush', {
 
 // a village is a tile on the grid that the PC must visit
 // in order to win the game
-
 Crafty.c('Village', {
 	init: function() {
 		this.requires('Actor, Color')
@@ -79,6 +83,7 @@ Crafty.c('Village', {
 
 	collect: function() {
 		this.destroy();
+		Crafty.trigger('VillageVisited', this);
 	}
 });
 

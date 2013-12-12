@@ -25,38 +25,9 @@ Game = {
 			// start crafty and set a background color so we see its working
 			Crafty.init(Game.width(), Game.height());
 			Crafty.background('rgb(249, 223, 125');
-			// player character, placed at 5, 5 on our grid
-			Crafty.e('PlayerCharacter').at(5,5);
-			// place a tree at every edge square on our grid of 16x16 tiles
-			// use for loop
-			for (var x = 0; x < Game.map_grid.width; x++) {
-				for (var y = 0; y < Game.map_grid.height; y++) {
-					var at_edge = x === 0 || x === Game.map_grid.width -1 || y === 0 || y === Game.map_grid.height -1;
-
-					if (at_edge) {
-					// place a tree entity at the current tile
-					Crafty.e('Tree').at(x,y);
-				} else if (Math.random() < 0.06) {
-					// Place a bush entity at the current tile
-					Crafty.e('Bush').at(x,y);
-				}
-			}
-		}
-		// generate up to five villages in the map in random locations
-    var max_villages = 5;
-    for (var x = 0; x < Game.map_grid.width; x++) {
-      for (var y = 0; y < Game.map_grid.height; y++) {
-      	// added my own fix to stop villages being placed in the edges with the trees
-      	var at_edge = x === 0 || x === Game.map_grid.width -1 || y === 0 || y === Game.map_grid.height -1;
-        if (Math.random() < 0.02 && !at_edge) {
-          Crafty.e('Village').at(x, y);
-
-          if (Crafty('Village').length >= max_villages) {
-            return;
-          }
-        }
-      }
-    }
+			// simply start the Game scene to get things going
+			Crafty.scene('Game');
   }
 }
+
 
