@@ -60,9 +60,27 @@ Crafty.c('Bush', {
 				this.x -= this._movement.x;
 				this.y -= this._movement.y;
 			}
+		},
+		// respond to this player visiting a village
+		visitVillage: function(data) {
+			village = data[0].obj;
+			village.collect();
 		}
 	});
 
+// a village is a tile on the grid that the PC must visit
+// in order to win the game
+
+Crafty.c('Village', {
+	init: function() {
+		this.requires('Actor, Color')
+			.color('rgb(170, 125, 40');
+	},
+
+	collect: function() {
+		this.destroy();
+	}
+});
 
 
 
