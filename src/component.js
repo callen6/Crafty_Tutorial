@@ -4,7 +4,7 @@
 Crafty.c('Grid', {
 	init: function () {
 		this.attr({
-			w: Game.map_grid.tile.width
+			w: Game.map_grid.tile.width,
 			h: Game.map_grid.tile.height
 		})
 	},
@@ -15,7 +15,6 @@ Crafty.c('Grid', {
 		} else {
 			this.attr({ x: x * Game.map_grid.tile.width, y: y * Game.map_grid.tile.height});
 			return this;
-		}
 		}
 	}
 });
@@ -29,7 +28,7 @@ Crafty.c('Actor', {
 Crafty.c('Tree', {
 	init: function () {
 		this.requires('Actor, Color')
-			.color('rgb(20, 125, 40'));
+			.color('rgb(20, 125, 40');
 		},
 });
 
