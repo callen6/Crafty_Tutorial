@@ -48,7 +48,7 @@ Crafty.c('Bush', {
 				.fourway(4)
 				.stopOnSolids()
 				 // Whenever the PC touches a village, respond to the event
-      	.onHit('Village', this.visitVillage);
+      	.onHit('Village', this.visitVillage)
       	// on the next four lines define our four animations
       	// each call to .animate specifies:
       	// the name of the animation
@@ -64,7 +64,7 @@ Crafty.c('Bush', {
 				this.bind('NewDirection', function(data){
 					if (data.x > 0) {
 						this.animate('PlayerMovingRight', animation_speed, -1);
-					} else if (data.x < 0 {
+					} else if (data.x < 0) {
 						this.animate('PlayerMovingLeft', animation_speed, -1);
 					} else if (data.y > 0){
 						this.animate('PlayerMovingDown', animation_speed, -1);
