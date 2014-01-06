@@ -22,8 +22,9 @@ Crafty.scene('Game', function() {
 					Crafty.e('Tree').at(x,y);
 					this.occupied[x][y] = true;
 				} else if (Math.random() < 0.06 && !this.occupied[x][y]) {
-					// Place a bush entity at the current tile
-					Crafty.e('Bush').at(x,y);
+					// Place a bush or a rock entity at the current tile
+					var bush_or_rock = (Math.random() > 0.3) ? 'Bush' : 'Rock';
+					Crafty.e(bush_or_rock).at(x,y);
 					this.occupied[x][y] = true;
 				}
 			}
@@ -39,6 +40,8 @@ Crafty.scene('Game', function() {
 				}
 			}
 		}
+		// play a ringing sound to indicate the start of the journey
+		Crafty.audio.play('ring');
 		// show the victory screen once all villages are visited
 		this.show_victory = this.bind('VillageVisited', function() {
 			if (!Crafty('Village').length) {
@@ -60,11 +63,19 @@ Crafty.scene('Victory', function () {
 	Crafty.e('2D, DOM, Text')
 	.attr({ x:0, y: Game.height()/2-24, w: Game.width() })
 	.css($text_css)
-	.text('Victory! Press any key to play again.');
+	.text('Victory! Crafty visited all the villages! Press any key to play again.');
+	// play a round of applause!
+	Crafty.audio.play('applause');
+	// after a short delay, watch for the player to press a key
+	// then restart the game when a key is pressed
+	var delay = true;
+	setTimeout(function() {delay=false;}, 1000);
 	// watch for the player to press a key, then restart the game
 	// when any key is pressed
-	this.restart_game = this.bind('KeyDown', function() {
-		Crafty.scene('Game');
+	this.restart_game = Crafty.bind('KeyDown', function() {
+		if (!delay){
+			Crafty.scene('Game');
+		}
 	});
 	// remove that event binding from above so we avoid multiple
 	//  redundant event watchers after restarting game many times
@@ -82,21 +93,29 @@ Crafty.scene('Loading', function(){
 	.attr({ x:0, y: Game.height()/2-24, w: Game.width() })
 	.css($text_css)
 	// load our sprite map image
-	Crafty.load(['assets/16x16_forest_1.gif',
+	Crafty.load(['assets/16x16_forest_2.gif',
 								'assets/hunter.png',
 								'assets/door_knock_3x.mp3',
 								'assets/door_knock_3x.ogg',
-								'assets/door_knock_3x.aac'], function() {
+								'assets/door_knock_3x.aac',
+								'assets/board_room_applause.mp3',
+								'assets/board_room_applause.ogg',
+								'assets/board_room_applause.aac',
+								'assets/candy_dish_lid.mp3',
+								'assets/candy_dish_lid.ogg',
+								'assets/candy_dish_lid.aac'
+								], function() {
 		// once the images are loaded
 		// define the individual sprites in the image
 		// each one (spr_tree, etc.) becomes a component
 		// these components' names are prefixed with "spr_"
 		// to remind us that they simply cause the entity
 		// to be drawn with a certain sprite
-		Crafty.sprite(16, 'assets/16x16_forest_1.gif', {
+		Crafty.sprite(16, 'assets/16x16_forest_2.gif', {
 			spr_tree: [0,0],
 			spr_bush: [1,0],
-			spr_village: [0,1]
+			spr_village: [0,1],
+			spr_rock: [1,1]
 		});
 	// define the PC's sprite to be the first sprite in
 	//the third row of the animation sprite map
@@ -105,9 +124,15 @@ Crafty.scene('Loading', function(){
 	}, 0, 2);
 	// define our sounds for later use
 	Crafty.audio.add({
-		knock: ['assets/door_knock_3x.mp3', 
+		knock: ['assets/door_knock_3x.mp3',
 						'assets/door_knock_3x.ogg',
-						'assets/door_knock_3x.aac']
+						'assets/door_knock_3x.aac'],
+		applause: ['assets/board_room_applause.mp3',
+								'assets/board_room_applause.ogg',
+								'assets/board_room_applause.aac'],
+		ring: ['assets/candy_dish_lid.mp3',
+								'assets/candy_dish_lid.ogg',
+								'assets/candy_dish_lid.aac']
 	});
 	// now that our sprites are ready to draw, start the game
 	Crafty.scene('Game');

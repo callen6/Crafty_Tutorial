@@ -38,7 +38,12 @@ Crafty.c('Bush', {
 	},
 });
 
-
+// a rock is just an actor with a certain sprite
+Crafty.c('Rock', {
+	init: function() {
+		this.requires('Actor, Solid, spr_rock');
+	},
+});
 
 
 // this is the player-controlled character
@@ -60,7 +65,7 @@ Crafty.c('Bush', {
       	.animate('PlayerMovingLeft', 0,3,2);
 
 				// watch for a change of direction and switch animations accordingly
-				var animation_speed = 8;
+				var animation_speed = 4;
 				this.bind('NewDirection', function(data){
 					if (data.x > 0) {
 						this.animate('PlayerMovingRight', animation_speed, -1);
